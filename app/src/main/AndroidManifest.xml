@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 휴식 중 YouTube Shorts 검색/재생 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- API 33+: 알람/타이머 앱 용도로 자동 허가 -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- API 32 폴백: 사용자가 설정 > 특수 앱 접근에서 허가 필요 -->
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:name=".GymstruckApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Gymstruck"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Gymstruck">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 휴식 종료 알람 수신 (백그라운드 신뢰성 backstop) -->
+        <receiver
+            android:name=".platform.RestEndReceiver"
+            android:exported="false" />
+
+    </application>
+
+</manifest>
